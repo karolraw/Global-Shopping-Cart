@@ -57,8 +57,28 @@
             }
         ]
 
+        function totalCost() {
+            let totalCost = 0
+            for (let index = 0; index < shoppingItems.length; index++) {
+                let shoppingItem = shoppingItems[index]
+                let price = shoppingItem.price
+                totalCost += price
+            }
+
+            let budget = document.getElementById("budget").value
+
+            if (totalCost < budget) {
+                return `${totalCost.toFixed(2)} zł`
+            } else {
+                alert(`Total cost is ${totalCost.toFixed(2)} zł.\nBudget exceeded by ${(totalCost - budget).toFixed(2)} zł!`)
+            }
+
+        }
+
         function createRows() {
             const tableBody = document.getElementById("tableBody")
+
+            tableBody.innerHTML = ""
         
             for (let index = 0; index < shoppingItems.length; index++) {
                 const row = document.createElement("tr")
@@ -75,23 +95,18 @@
             }
         }
 
-        function totalCost() {
+        function addShoppingItem() {
+            let shoppingItem = {}
 
-            let totalCost = 0
-            for (let index = 0; index < shoppingItems.length; index++) {
-                let shoppingItem = shoppingItems[index]
-                let price = shoppingItem.price
-                totalCost += price
-            }
+            shoppingItem.description = document.getElementById("description").value
+            shoppingItem.store = document.getElementById("store").value
+            shoppingItem.price = Number(document.getElementById("price").value)
+            shoppingItem.category = document.getElementById("category").value
+            shoppingItem.website = document.getElementById("website").value
+            shoppingItem.previewImage = document.getElementById("previewImage").value
 
-            let budget = document.getElementById("budget").value
-
-            if (totalCost < budget) {
-                return `${totalCost.toFixed(2)} zł`
-            } else {
-                alert(`Total cost is ${totalCost.toFixed(2)} zł.\nBudget exceeded by ${(totalCost - budget).toFixed(2)} zł!`)
-            }
-            
+            shoppingItems.push(shoppingItem)
+            createRows() // Refresh the table
         }
 
     </script>  
@@ -107,6 +122,30 @@
         <label for="budget" style="margin:0 10px">Budget:</label>
         <input id="budget" size="5" value="2000">
         <label for="budget" style="margin:0 10px">zł</label>
+    </div>
+
+    <div>
+        <form autocomplete="off">
+            <label for="description">Description:</label>
+            <input id="description"><br>
+
+            <label for="store">Store:</label>
+            <input id="store"><br>
+
+            <label for="price">Price:</label>
+            <input id="price"><br>
+
+            <label for="website">Website:</label>
+            <input id="website"><br>
+
+            <label for="category">Category:</label>
+            <input id="category"><br>
+
+            <label for="previewImage">Preview Image:</label>
+            <input id="previewImage"><br>
+
+            <input type="button" onclick="addShoppingItem()" value="Add Item">
+        </form>
     </div>
 
     <div style="display: flex; align-items: center; justify-content: space-between;">
