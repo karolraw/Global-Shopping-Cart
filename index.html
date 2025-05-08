@@ -6,56 +6,7 @@
     <title>Global Shopping Cart</title>
     <script>
 
-    const shoppingItems = [
-            {
-                description: "KOSZULA Z MOTYWEM KWIATOWYM",
-                store: "Zara",
-                price: 149.00,
-                website: "https://www.zara.com/pl/pl/koszula-z-motywem-kwiatowym-p04494151.html?v1=444542441&v2=2431994",
-                category: "Clothes",
-                previewImage: "https://static.zara.net/assets/public/9312/3696/a2be4a4ab1e9/a7dd7aa81a20/04494151403-p/04494151403-p.jpg?ts=1746184238743&w=1024"
-            },
-            {
-                description: "Kreszowana sukienka z elastycznym marszczeniem",
-                store: "H&M",
-                price: 124.99,
-                website: "https://www2.hm.com/pl_pl/productpage.1277412002.html",
-                category: "Clothes",
-                previewImage: "https://image.hm.com/assets/hm/4a/fb/4afb1b5282bf19d461499f00f883a413b9afe108.jpg?imwidth=1536"
-            },
-            {
-                description: "Długie spodnie ze zwierzęcym wzorem",
-                store: "Calzedonia",
-                price: 179.99,
-                website: "https://www.calzedonia.com/pl/product/d%C5%82ugie_spodnie_ze_zwierz%C4%99cym_wzorem-0BDP148.html?dwvar_0BDP148_Z_COL_MARE=031E",
-                category: "Clothes",
-                previewImage: "https://www.calzedonia.com/dw/image/v2/BJHW_PRD/on/demandware.static/-/Sites-CAL_EC_COM/default/dw6b62bab9/images/0BDP148031E-FI.jpg?sfrm=jpeg&sw=1920&q=80"
-            },
-            {
-                description: "MIKSER RĘCZNY Z MISĄ ROBOT KUCHENNY HAND MIXER",
-                store: "Allegro",
-                price: 56.71,
-                website: "https://allegro.pl/oferta/mikser-reczny-z-misa-robot-kuchenny-hand-mixer-17338118064",
-                category: "Home",
-                previewImage: "https://a.allegroimg.com/s360/11882e/553cdf844d58a6c03da0fd7c1f08/MIKSER-RECZNY-Z-MISA-ROBOT-KUCHENNY-HAND-MIXER"
-            },
-            {
-                description: "Głośnik Bluetooth SONY ULT Field 5 Biały",
-                store: "Media Markt",
-                price: 1299,
-                website: "https://mediamarkt.pl/pl/product/_glosnik-bluetooth-sony-ult-field-5-bialy-1491698.html",
-                category: "Electronics",
-                previewImage: "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_152496521?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402"
-            },
-            {
-                description: 'Czytnik e-booków INKBOOK Calypso Plus 6", Podświetlany ekran, Wi-Fi, Bez reklam Czarny',
-                store: "Media Expert",
-                price: 599.99,
-                category: "Electronics",
-                website: "https://www.mediaexpert.pl/komputery-i-tablety/tablety-i-e-booki/czytniki-e-bookow/ebook-reader-inkbook-calypso-plus-black",
-                previewImage: "https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/27/2747781/Czytnik-E-Bookow-INKBOOK-Calypso-Plus-Czarny-front-tyl.jpg"
-            }
-        ]
+    let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
 
         function totalCost() {
             let totalCost = 0
@@ -80,6 +31,11 @@
 
             tableBody.innerHTML = ""
         
+            let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
+            if (!shoppingItems) {
+                return
+            } 
+
             for (let index = 0; index < shoppingItems.length; index++) {
                 const row = document.createElement("tr")
                 let shoppingItem = shoppingItems[index]
@@ -106,7 +62,21 @@
             shoppingItem.previewImage = document.getElementById("previewImage").value
 
             shoppingItems.push(shoppingItem)
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
             createRows() // Refresh the table
+
+            document.getElementById("description").value = null
+            document.getElementById("store").value = null
+            document.getElementById("price").value = null
+            document.getElementById("category").value = null
+            document.getElementById("website").value = null
+            document.getElementById("previewImage").value = null
+        } 
+
+        function clearStorage() {
+            window.localStorage.clear()
+            shoppingItems = []
+            createRows()
         }
 
     </script>  
@@ -145,6 +115,7 @@
             <input id="previewImage"><br>
 
             <input type="button" onclick="addShoppingItem()" value="Add Item">
+            <input type="button" onclick="clearStorage()" value="Clear Storage">
         </form>
     </div>
 
