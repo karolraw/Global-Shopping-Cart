@@ -6,7 +6,7 @@
     <title>Global Shopping Cart</title>
     <script>
 
-    let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
+        let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
 
         function totalCost() {
             let totalCost = 0
@@ -40,12 +40,14 @@
                 const row = document.createElement("tr")
                 let shoppingItem = shoppingItems[index]
 
+                row.id = index
                 row.innerHTML = `<td>${shoppingItem.description}</td>
                                 <td>${shoppingItem.store}</td>
                                 <td>${shoppingItem.price.toFixed(2)} zł</td>
                                 <td>${shoppingItem.category}</td>
                                 <td><a href=${shoppingItem.website} target="_blank">Visit Store</a></td>
                                 <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"'>preview</button></td>
+                                <td><button onclick="deleteRow(${index})" style="background-color: #ee82ee;">&times;</button></td>
                                 `
                 tableBody.appendChild(row)
             }
@@ -77,6 +79,12 @@
             window.localStorage.clear()
             shoppingItems = []
             createRows()
+        }
+
+        function deleteRow(index) {
+            shoppingItems.splice(index, 1)
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() // Refresh the table
         }
 
     </script>  
