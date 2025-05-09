@@ -47,6 +47,7 @@
                                 <td>${shoppingItem.category}</td>
                                 <td><a href=${shoppingItem.website} target="_blank">Visit Store</a></td>
                                 <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"'>preview</button></td>
+                                <td>${shoppingItem.importance}</td>
                                 <td><button onclick="deleteRow(${index})" style="background-color: #ee82ee;">&times;</button></td>
                                 `
                 tableBody.appendChild(row)
@@ -62,17 +63,19 @@
             shoppingItem.category = document.getElementById("category").value
             shoppingItem.website = document.getElementById("website").value
             shoppingItem.previewImage = document.getElementById("previewImage").value
+            shoppingItem.importance = document.getElementById("importance").value
 
             shoppingItems.push(shoppingItem)
             window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
             createRows() // Refresh the table
 
             document.getElementById("description").value = null
-            document.getElementById("store").value = null
+            document.getElementById("store").value = "Select Store"
             document.getElementById("price").value = null
-            document.getElementById("category").value = null
+            document.getElementById("category").value = "Select Category"
             document.getElementById("website").value = null
             document.getElementById("previewImage").value = null
+            document.getElementById("importance").value = "Select Importance"
         } 
 
         function clearStorage() {
@@ -87,7 +90,12 @@
             createRows() // Refresh the table
         }
 
-    </script>  
+    </script> 
+    <style>
+        form label, form input, select {
+            margin: 5px 0;
+        }
+    </style> 
 </head>
 <body onload="createRows()">
 
@@ -108,7 +116,16 @@
             <input id="description"><br>
 
             <label for="store">Store:</label>
-            <input id="store"><br>
+            <select id="store">
+                <option>Select Store</option>
+                <option>Zara</option>
+                <option>H&M</option>
+                <option>Calzedonia</option>
+                <option>Media Markt</option>
+                <option>Media Expert</option>
+                <option>Ikea</option>
+                <option>Leroy Merlin</option>
+            </select><br>
 
             <label for="price">Price:</label>
             <input id="price"><br>
@@ -117,10 +134,23 @@
             <input id="website"><br>
 
             <label for="category">Category:</label>
-            <input id="category"><br>
+            <select id="category">
+                <option>Select Category</option>
+                <option>Clothes</option>
+                <option>Home</option>
+                <option>Electronics</option>
+            </select><br>
 
             <label for="previewImage">Preview Image:</label>
             <input id="previewImage"><br>
+
+            <label for="importance">Importance:</label>
+            <select id="importance">
+                <option>Select Importance</option>
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+            </select><br>
 
             <input type="button" onclick="addShoppingItem()" value="Add Item">
             <input type="button" onclick="clearStorage()" value="Clear Storage">
@@ -137,6 +167,7 @@
                     <th>Category</th>
                     <th>Website</th>
                     <th>Preview</th>
+                    <th>Importance</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
