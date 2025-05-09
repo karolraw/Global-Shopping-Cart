@@ -45,10 +45,10 @@
                                 <td>${shoppingItem.store}</td>
                                 <td>${shoppingItem.price.toFixed(2)} zł</td>
                                 <td>${shoppingItem.category}</td>
-                                <td><a href=${shoppingItem.website} target="_blank">Visit Store</a></td>
-                                <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"'>preview</button></td>
+                                <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
+                                <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
                                 <td>${shoppingItem.importance}</td>
-                                <td><button onclick="deleteRow(${index})" style="background-color: #ee82ee;">&times;</button></td>
+                                <td><button onclick="deleteRow(${index})">&times;</button></td>
                                 `
                 tableBody.appendChild(row)
             }
@@ -92,9 +92,83 @@
 
     </script> 
     <style>
+
         form label, form input, select {
             margin: 5px 0;
         }
+
+        .container {
+            display:flex;
+        }
+
+        .table-container {
+            border: 3px solid black;
+            border-radius: 4px;
+            margin: 5px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-container {   
+            border: 3px solid black;
+            border-radius: 4px;
+            margin: 5px;
+            width:300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            margin: 5px;
+            width: 250px;
+            border-radius: 4px;
+        }
+
+        table {
+            margin: 5px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 3px;
+        }
+
+        th {
+            background-color: aquamarine;
+        }
+
+        td:last-child {
+            border: none;
+            background-color: white;
+        }
+
+        td:last-child button {
+            background-color: #ee82ee;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        td:last-child button:hover {
+            background-color: lightpink;
+        }
+
+        td:nth-child(5), td:nth-child(6) {
+            text-align: center;
+        }
+
+        tr:nth-child(odd) {
+            background-color: lightcyan;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        
     </style> 
 </head>
 <body onload="createRows()">
@@ -157,25 +231,30 @@
         </form>
     </div>
 
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-        <table style="margin-left: 200px;">
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Store</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Website</th>
-                    <th>Preview</th>
-                    <th>Importance</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- create body using script -->
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Store</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Website</th>
+                        <th>Preview</th>
+                        <th>Importance</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- create body using script -->
+                </tbody>
+            </table>
+        </div>
         
-        <img id="preview" src="" alt="Select Item to Preview" style="height: 300px; width: auto; margin-right: 200px;">
+        <div class="image-container">
+            <!-- <img id="preview" src="" alt="Select Item to Preview" style="height: 300px; width: auto; margin-right: 200px;"> -->
+            <img id="preview" src="" alt="Select Item to Preview">
+        </div> 
     </div>
 
 </body>
