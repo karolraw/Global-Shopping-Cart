@@ -93,6 +93,24 @@
     </script> 
     <style>
 
+        .modal {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .form-container {
+            background-color: aqua;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
         form label, form input, select {
             margin: 5px 0;
         }
@@ -176,62 +194,60 @@
 </head>
 <body onload="createRows()">
 
-    <div style="margin-top: 100px; display: flex; align-items: center; justify-content: center;">
-        <button onclick="document.getElementById('totalCost').textContent = totalCost()" style="margin: 10px;">Calculate Total Cost</button>
-        <span id="totalCost"></span>
+    <div style="background-color: darkblue; border-radius: 8px; height: 50px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
+        <div style="margin-right: 10px;">
+            <button onclick="document.querySelector('.modal').style.display = 'flex'" style="background-color: orange;">New Item</button>
+        </div>
     </div>
 
-    <div style="display: flex; align-items: center; justify-content: center;">
-        <label for="budget" style="margin:0 10px">Budget:</label>
-        <input id="budget" size="5" value="2000">
-        <label for="budget" style="margin:0 10px">zł</label>
-    </div>
-
-    <div>
-        <form autocomplete="off">
-            <label for="description">Description:</label>
-            <input id="description"><br>
-
-            <label for="store">Store:</label>
-            <select id="store">
-                <option>Select Store</option>
-                <option>Zara</option>
-                <option>H&M</option>
-                <option>Calzedonia</option>
-                <option>Media Markt</option>
-                <option>Media Expert</option>
-                <option>Ikea</option>
-                <option>Leroy Merlin</option>
-            </select><br>
-
-            <label for="price">Price:</label>
-            <input id="price"><br>
-
-            <label for="website">Website:</label>
-            <input id="website"><br>
-
-            <label for="category">Category:</label>
-            <select id="category">
-                <option>Select Category</option>
-                <option>Clothes</option>
-                <option>Home</option>
-                <option>Electronics</option>
-            </select><br>
-
-            <label for="previewImage">Preview Image:</label>
-            <input id="previewImage"><br>
-
-            <label for="importance">Importance:</label>
-            <select id="importance">
-                <option>Select Importance</option>
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
-            </select><br>
-
-            <input type="button" onclick="addShoppingItem()" value="Add Item">
-            <input type="button" onclick="clearStorage()" value="Clear Storage">
-        </form>
+    <div class="modal">
+        <div class="form-container">
+            <form autocomplete="off">
+                <button onclick="document.querySelector('.form-container').style.display = 'none'" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                <label for="description">Description:</label>
+                <input id="description"><br>
+    
+                <label for="store">Store:</label>
+                <select id="store">
+                    <option>Select Store</option>
+                    <option>Zara</option>
+                    <option>H&M</option>
+                    <option>Calzedonia</option>
+                    <option>Media Markt</option>
+                    <option>Media Expert</option>
+                    <option>Ikea</option>
+                    <option>Leroy Merlin</option>
+                </select><br>
+    
+                <label for="price">Price:</label>
+                <input id="price"><br>
+    
+                <label for="website">Website:</label>
+                <input id="website"><br>
+    
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option>Select Category</option>
+                    <option>Clothes</option>
+                    <option>Home</option>
+                    <option>Electronics</option>
+                </select><br>
+    
+                <label for="previewImage">Preview Image:</label>
+                <input id="previewImage"><br>
+    
+                <label for="importance">Importance:</label>
+                <select id="importance">
+                    <option>Select Importance</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select><br>
+    
+                <input type="button" onclick="addShoppingItem()" value="Add Item">
+                <input type="button" onclick="clearStorage()" value="Clear Storage">
+            </form>
+        </div>
     </div>
 
     <div class="container">
@@ -257,8 +273,18 @@
         <div class="image-container">
             <!-- <img id="preview" src="" alt="Select Item to Preview" style="height: 300px; width: auto; margin-right: 200px;"> -->
             <img id="preview" src="" alt="Select Item to Preview">
-        </div> 
+        </div>         
     </div>
 
+    <div style="margin-top: 100px; display: flex; align-items: center; justify-content: center;">
+        <button onclick="document.getElementById('totalCost').textContent = totalCost()" style="margin: 10px;">Calculate Total Cost</button>
+        <span id="totalCost"></span>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <label for="budget" style="margin:0 10px">Budget:</label>
+        <input id="budget" size="5" value="2000">
+        <label for="budget" style="margin:0 10px">zł</label>
+    </div>
 </body>
 </html>
