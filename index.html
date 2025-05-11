@@ -4,93 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Shopping Cart</title>
-    <script>
-
-        let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
-
-        function totalCost() {
-            let totalCost = 0
-            for (let index = 0; index < shoppingItems.length; index++) {
-                let shoppingItem = shoppingItems[index]
-                let price = shoppingItem.price
-                totalCost += price
-            }
-
-            let budget = document.getElementById("budget").value
-
-            if (totalCost < budget) {
-                return `${totalCost.toFixed(2)} zł`
-            } else {
-                alert(`Total cost is ${totalCost.toFixed(2)} zł.\nBudget exceeded by ${(totalCost - budget).toFixed(2)} zł!`)
-            }
-
-        }
-
-        function createRows() {
-            const tableBody = document.getElementById("tableBody")
-
-            tableBody.innerHTML = ""
-        
-            let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
-            if (!shoppingItems) {
-                return
-            } 
-
-            for (let index = 0; index < shoppingItems.length; index++) {
-                const row = document.createElement("tr")
-                let shoppingItem = shoppingItems[index]
-
-                row.id = index
-                row.innerHTML = `<td>${shoppingItem.description}</td>
-                                <td>${shoppingItem.store}</td>
-                                <td>${shoppingItem.price.toFixed(2)} zł</td>
-                                <td>${shoppingItem.category}</td>
-                                <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
-                                <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
-                                <td>${shoppingItem.importance}</td>
-                                <td><button onclick="deleteRow(${index})">&times;</button></td>
-                                `
-                tableBody.appendChild(row)
-            }
-        }
-
-        function addShoppingItem() {
-            let shoppingItem = {}
-
-            shoppingItem.description = document.getElementById("description").value
-            shoppingItem.store = document.getElementById("store").value
-            shoppingItem.price = Number(document.getElementById("price").value)
-            shoppingItem.category = document.getElementById("category").value
-            shoppingItem.website = document.getElementById("website").value
-            shoppingItem.previewImage = document.getElementById("previewImage").value
-            shoppingItem.importance = document.getElementById("importance").value
-
-            shoppingItems.push(shoppingItem)
-            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
-            createRows() // Refresh the table
-
-            document.getElementById("description").value = null
-            document.getElementById("store").value = "Select Store"
-            document.getElementById("price").value = null
-            document.getElementById("category").value = "Select Category"
-            document.getElementById("website").value = null
-            document.getElementById("previewImage").value = null
-            document.getElementById("importance").value = "Select Importance"
-        } 
-
-        function clearStorage() {
-            window.localStorage.clear()
-            shoppingItems = []
-            createRows()
-        }
-
-        function deleteRow(index) {
-            shoppingItems.splice(index, 1)
-            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
-            createRows() // Refresh the table
-        }
-
-    </script> 
     <style>
 
         .modal {
@@ -198,6 +111,10 @@
         <div style="margin-left: 10px;">
             <button onclick="clearStorage()" style="background-color: orange;">Clear Storage</button>
         </div>
+
+        <div>
+            <h1 style="color:greenyellow;">Global Shopping Cart</h1>
+        </div>
         
         <div style="margin-right: 10px;">
             <button onclick="document.querySelector('.modal').style.display = 'flex'" style="background-color: orange;">New Item</button>
@@ -253,6 +170,11 @@
         </div>
     </div>
 
+    <div>
+        <h3 style="text-align: center;">Your Budget: <input id="budget" size="5" value="2000"> zł</h3>
+        <h3 style="text-align: center;">Total Cost: <span id="totalCost"></span></h3>
+    </div>
+
     <div class="container">
         <div class="table-container">
             <table>
@@ -279,15 +201,97 @@
         </div>         
     </div>
 
-    <div style="margin-top: 100px; display: flex; align-items: center; justify-content: center;">
-        <button onclick="document.getElementById('totalCost').textContent = totalCost()" style="margin: 10px;">Calculate Total Cost</button>
-        <span id="totalCost"></span>
-    </div>
+    <script>
 
-    <div style="display: flex; align-items: center; justify-content: center;">
-        <label for="budget" style="margin:0 10px">Budget:</label>
-        <input id="budget" size="5" value="2000">
-        <label for="budget" style="margin:0 10px">zł</label>
-    </div>
+        let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
+
+        document.getElementById("budget").addEventListener("input", totalCost)
+
+        function totalCost() {
+            let totalCost = 0
+            for (let index = 0; index < shoppingItems.length; index++) {
+                let shoppingItem = shoppingItems[index]
+                let price = shoppingItem.price
+                totalCost += price
+            }
+
+            let budget = document.getElementById("budget").value
+
+            if (totalCost < budget) {
+                document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł`
+            } else {
+                document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł (budget exceeded by ${(totalCost - budget).toFixed(2)} zł!)`
+                document.getElementById("totalCost").style.color = "red"
+            }
+
+        }
+
+        function createRows() {
+            const tableBody = document.getElementById("tableBody")
+
+            tableBody.innerHTML = ""
+        
+            let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
+            if (!shoppingItems) {
+                return
+            } 
+
+            for (let index = 0; index < shoppingItems.length; index++) {
+                const row = document.createElement("tr")
+                let shoppingItem = shoppingItems[index]
+
+                row.id = index
+                row.innerHTML = `<td>${shoppingItem.description}</td>
+                                <td>${shoppingItem.store}</td>
+                                <td>${shoppingItem.price.toFixed(2)} zł</td>
+                                <td>${shoppingItem.category}</td>
+                                <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
+                                <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
+                                <td>${shoppingItem.importance}</td>
+                                <td><button onclick="deleteRow(${index})">&times;</button></td>
+                                `
+                tableBody.appendChild(row)
+            }
+
+            totalCost()
+        }
+
+        function addShoppingItem() {
+            let shoppingItem = {}
+
+            shoppingItem.description = document.getElementById("description").value
+            shoppingItem.store = document.getElementById("store").value
+            shoppingItem.price = Number(document.getElementById("price").value)
+            shoppingItem.category = document.getElementById("category").value
+            shoppingItem.website = document.getElementById("website").value
+            shoppingItem.previewImage = document.getElementById("previewImage").value
+            shoppingItem.importance = document.getElementById("importance").value
+
+            shoppingItems.push(shoppingItem)
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() // Refresh the table
+
+            document.getElementById("description").value = null
+            document.getElementById("store").value = "Select Store"
+            document.getElementById("price").value = null
+            document.getElementById("category").value = "Select Category"
+            document.getElementById("website").value = null
+            document.getElementById("previewImage").value = null
+            document.getElementById("importance").value = "Select Importance"
+        } 
+
+        function clearStorage() {
+            window.localStorage.clear()
+            shoppingItems = []
+            createRows()
+        }
+
+        function deleteRow(index) {
+            shoppingItems.splice(index, 1)
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() // Refresh the table
+        }
+
+    </script> 
 </body>
 </html>
