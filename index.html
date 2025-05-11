@@ -194,7 +194,11 @@
 </head>
 <body onload="createRows()">
 
-    <div style="background-color: darkblue; border-radius: 8px; height: 50px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
+    <div style="background-color: darkblue; border-radius: 8px; height: 50px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div style="margin-left: 10px;">
+            <button onclick="clearStorage()" style="background-color: orange;">Clear Storage</button>
+        </div>
+        
         <div style="margin-right: 10px;">
             <button onclick="document.querySelector('.modal').style.display = 'flex'" style="background-color: orange;">New Item</button>
         </div>
@@ -244,8 +248,7 @@
                     <option>High</option>
                 </select><br>
     
-                <input type="button" onclick="addShoppingItem()" value="Add Item">
-                <input type="button" onclick="clearStorage()" value="Clear Storage">
+                <input type="button" onclick="addShoppingItem()" value="Add Item" style="float: right;">
             </form>
         </div>
     </div>
