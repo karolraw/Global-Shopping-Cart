@@ -70,24 +70,23 @@
             position: sticky;
             top: 0;
         }
-
-        td:last-child {
+        
+        td:nth-child(5), td:nth-child(6) {
+            text-align: center;
+        }
+        td:nth-child(8), td:nth-child(9) {
             border: none;
             background-color: #5dd0d8;
         }
 
-        td:last-child button {
+        td:nth-child(8) button, td:nth-child(9) button {
             background-color: #ee82ee;
             border-radius: 4px;
             font-weight: bold;
         }
         
-        td:last-child button:hover {
+        td:nth-child(8) button:hover, td:nth-child(9) button:hover {
             background-color: lightpink;
-        }
-
-        td:nth-child(5), td:nth-child(6) {
-            text-align: center;
         }
 
         tr {
@@ -249,6 +248,7 @@
                                 <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
                                 <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
                                 <td>${shoppingItem.importance}</td>
+                                <td><button onclick="editRow(${index})">Edit</button></td>
                                 <td><button onclick="deleteRow(${index})">&times;</button></td>
                                 `
                 tableBody.appendChild(row)
@@ -291,6 +291,10 @@
             shoppingItems.splice(index, 1)
             window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
             createRows() // Refresh the table
+        }
+
+        function editrow(index) {
+
         }
 
     </script> 
