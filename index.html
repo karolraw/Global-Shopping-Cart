@@ -116,19 +116,19 @@
         </div>
         
         <div style="margin-right: 10px;">
-            <button onclick="document.querySelector('.modal').style.display = 'flex'" style="background-color: orange;">New Item</button>
+            <button onclick="document.getElementById('modal-add-item').style.display = 'flex'" style="background-color: orange;">New Item</button>
         </div>
     </div>
 
-    <div class="modal">
+    <div class="modal" id="modal-add-item">
         <div class="form-container">
             <form autocomplete="off">
                 <button onclick="document.querySelector('.form-container').style.display = 'none'" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
-                <label for="description">Description:</label>
-                <input id="description"><br>
+                <label for="description-add">Description:</label>
+                <input id="description-add"><br>
     
-                <label for="store">Store:</label>
-                <select id="store">
+                <label for="store-add">Store:</label>
+                <select id="store-add">
                     <option>Select Store</option>
                     <option>Zara</option>
                     <option>H&M</option>
@@ -139,25 +139,25 @@
                     <option>Leroy Merlin</option>
                 </select><br>
     
-                <label for="price">Price:</label>
-                <input id="price"><br>
+                <label for="price-add">Price:</label>
+                <input id="price-add"><br>
     
-                <label for="website">Website:</label>
-                <input id="website"><br>
+                <label for="website-add">Website:</label>
+                <input id="website-add"><br>
     
-                <label for="category">Category:</label>
-                <select id="category">
+                <label for="category-add">Category:</label>
+                <select id="category-add">
                     <option>Select Category</option>
                     <option>Clothes</option>
                     <option>Home</option>
                     <option>Electronics</option>
                 </select><br>
     
-                <label for="previewImage">Preview Image:</label>
-                <input id="previewImage"><br>
+                <label for="previewImage-add">Preview Image:</label>
+                <input id="previewImage-add"><br>
     
-                <label for="importance">Importance:</label>
-                <select id="importance">
+                <label for="importance-add">Importance:</label>
+                <select id="importance-add">
                     <option>Select Importance</option>
                     <option>Low</option>
                     <option>Medium</option>
@@ -165,6 +165,55 @@
                 </select><br>
     
                 <input type="button" onclick="addShoppingItem()" value="Add Item" style="float: right;">
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-edit-item">
+        <div class="form-container">
+            <form autocomplete="off">
+                <button onclick="document.querySelector('.form-container').style.display = 'none'" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                <label for="description-edit">Description:</label>
+                <input id="description-edit"><br>
+    
+                <label for="store-edit">Store:</label>
+                <select id="store-edit">
+                    <option>Select Store</option>
+                    <option>Zara</option>
+                    <option>H&M</option>
+                    <option>Calzedonia</option>
+                    <option>Media Markt</option>
+                    <option>Media Expert</option>
+                    <option>Ikea</option>
+                    <option>Leroy Merlin</option>
+                </select><br>
+    
+                <label for="price-edit">Price:</label>
+                <input id="price-edit"><br>
+    
+                <label for="website-edit">Website:</label>
+                <input id="website-edit"><br>
+    
+                <label for="category-edit">Category:</label>
+                <select id="category-edit">
+                    <option>Select Category</option>
+                    <option>Clothes</option>
+                    <option>Home</option>
+                    <option>Electronics</option>
+                </select><br>
+    
+                <label for="previewImage-edit">Preview Image:</label>
+                <input id="previewImage-edit"><br>
+    
+                <label for="importance-edit">Importance:</label>
+                <select id="importance-edit">
+                    <option>Select Importance</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select><br>
+    
+                <input type="button" id="button-edit" value="Edit Item" style="float: right;">
             </form>
         </div>
     </div>
@@ -248,7 +297,7 @@
                                 <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
                                 <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
                                 <td>${shoppingItem.importance}</td>
-                                <td><button onclick="editRow(${index})">Edit</button></td>
+                                <td><button onclick="populateForm(${index})">Edit</button></td>
                                 <td><button onclick="deleteRow(${index})">&times;</button></td>
                                 `
                 tableBody.appendChild(row)
@@ -260,25 +309,25 @@
         function addShoppingItem() {
             let shoppingItem = {}
 
-            shoppingItem.description = document.getElementById("description").value
-            shoppingItem.store = document.getElementById("store").value
-            shoppingItem.price = Number(document.getElementById("price").value)
-            shoppingItem.category = document.getElementById("category").value
-            shoppingItem.website = document.getElementById("website").value
-            shoppingItem.previewImage = document.getElementById("previewImage").value
-            shoppingItem.importance = document.getElementById("importance").value
+            shoppingItem.description = document.getElementById("description-add").value
+            shoppingItem.store = document.getElementById("store-add").value
+            shoppingItem.price = Number(document.getElementById("price-add").value)
+            shoppingItem.category = document.getElementById("category-add").value
+            shoppingItem.website = document.getElementById("website-add").value
+            shoppingItem.previewImage = document.getElementById("previewImage-add").value
+            shoppingItem.importance = document.getElementById("importance-add").value
 
             shoppingItems.push(shoppingItem)
             window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
             createRows() // Refresh the table
 
-            document.getElementById("description").value = null
-            document.getElementById("store").value = "Select Store"
-            document.getElementById("price").value = null
-            document.getElementById("category").value = "Select Category"
-            document.getElementById("website").value = null
-            document.getElementById("previewImage").value = null
-            document.getElementById("importance").value = "Select Importance"
+            document.getElementById("description-add").value = null
+            document.getElementById("store-add").value = "Select Store"
+            document.getElementById("price-add").value = null
+            document.getElementById("category-add").value = "Select Category"
+            document.getElementById("website-add").value = null
+            document.getElementById("previewImage-add").value = null
+            document.getElementById("importance-add").value = "Select Importance"
         } 
 
         function clearStorage() {
@@ -293,8 +342,37 @@
             createRows() // Refresh the table
         }
 
-        function editrow(index) {
+        function populateForm(index) {
+            let shoppingItem = shoppingItems[index]
 
+            document.getElementById("modal-edit-item").style.display = "flex"
+
+            document.getElementById("description-edit").value = shoppingItem.description
+            document.getElementById("store-edit").value = shoppingItem.store
+            document.getElementById("price-edit").value = shoppingItem.price
+            document.getElementById("category-edit").value = shoppingItem.category
+            document.getElementById("website-edit").value = shoppingItem.website
+            document.getElementById("previewImage-edit").value = shoppingItem.previewImage
+            document.getElementById("importance-edit").value = shoppingItem.importance
+
+            const button = document.getElementById("button-edit")
+            button.addEventListener("click", function (e) {editRow(e, index)})
+        }
+
+        function editRow(e, index) {
+            let shoppingItem = {}
+
+            shoppingItem.description = document.getElementById("description-edit").value
+            shoppingItem.store = document.getElementById("store-edit").value
+            shoppingItem.price = Number(document.getElementById("price-edit").value)
+            shoppingItem.category = document.getElementById("category-edit").value
+            shoppingItem.website = document.getElementById("website-edit").value
+            shoppingItem.previewImage = document.getElementById("previewImage-edit").value
+            shoppingItem.importance = document.getElementById("importance-edit").value
+
+            shoppingItems.splice(index, 1, shoppingItem) // Delete and insert at the same index
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() // Refresh the table
         }
 
     </script> 
