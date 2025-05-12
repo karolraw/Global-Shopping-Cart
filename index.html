@@ -228,13 +228,13 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Description</th>
-                        <th>Store</th>
-                        <th>Price</th>
-                        <th>Category</th>
+                        <th>Description <button onclick="sortDown('description')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('description')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                        <th>Store <button onclick="sortDown('store')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('store')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                        <th>Price <button onclick="sortDown('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                        <th>Category <button onclick="sortDown('category')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('category')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
                         <th>Website</th>
                         <th>Preview</th>
-                        <th>Importance</th>
+                        <th>Importance <button onclick="sortDown('importance')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('importance')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -339,7 +339,7 @@
         function deleteRow(index) {
             shoppingItems.splice(index, 1)
             window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
-            createRows() // Refresh the table
+            createRows() 
         }
 
         function populateForm(index) {
@@ -372,7 +372,30 @@
 
             shoppingItems.splice(index, 1, shoppingItem) // Delete and insert at the same index
             window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
-            createRows() // Refresh the table
+            createRows() 
+        }
+
+        function sortDown(property, isText=true) {
+            if (isText) {
+                shoppingItems.sort((a, b) => a[property].localeCompare(b[property]))
+            } else {
+                shoppingItems.sort((a, b) => a[property] - b[property])
+            }
+            
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() 
+        }
+
+        function sortUp(property, isText=true) {
+            if (isText) {
+                shoppingItems.sort((a, b) => b[property].localeCompare(a[property]))
+            } else {
+                shoppingItems.sort((a, b) => b[property] - a[property])
+            }
+
+            shoppingItems.sort((a, b) => b[property] - a[property])
+            window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
+            createRows() 
         }
 
     </script> 
