@@ -29,35 +29,32 @@ form label, form input, select {
 
 .charts {
     display: flex;
-    flex-direction: column;
     background-color: lightcyan;
     border-radius: 8px; 
+    margin: 10px 10px;
+}
+
+figure {
+    display: flex;
+    /* flex-direction: column; */
+    margin: 10px 10px;
 }
 
 .pie {
     width: 250px;
     aspect-ratio: 1;
     border-radius: 50%;
-    background-image: radial-gradient(
-        lightcyan 0 30%,
-        transparent 30% 60%,
-        lightcyan 60% 100%
-    ),
-    conic-gradient(
-        red 0% 30%,
-        green 30% 60%,
-        blue 60% 100%
-    );
     margin: 10px 10px;
 }
 
-figcaption {
+.legends {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     justify-content: center;
 }
 
-figcaption span::before {
+.legends span::before {
     content: "";
     display: inline-block;
     width: 10px;
@@ -66,16 +63,32 @@ figcaption span::before {
     margin-right: 5px;
 }
 
-figcaption span:nth-child(1)::before {
+.legends span.red::before {
     background-color: red;
 }
 
-figcaption span:nth-child(2)::before {
+.legends span.green::before {
     background-color: green;
 }
 
-figcaption span:nth-child(3)::before {
+.legends span.blue::before {
     background-color: blue;
+}
+
+.legends span.purple::before {
+    background-color: purple;
+}
+
+.legends span.yellow::before {
+    background-color: yellow;
+}
+
+.legends span.pink::before {
+    background-color: pink;
+}
+
+.legends span.orange::before {
+    background-color: orange;
 }
 
 .table-container {

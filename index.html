@@ -127,16 +127,19 @@
             <h3 style="text-align: center;">Total Cost: <span id="totalCost"></span></h3>
         </div>
         
-        <figure>
-            <div class="charts">
-                <div class="pie"></div>
-                <figcaption>
-                    <span>Clothes</span>
-                    <span>Electronics</span>
-                    <span>Home</span>
-                </figcaption>
-            </div>
-        </figure>
+        <div class="charts">
+            <figure>
+                <h2>Spendings by Category</h2>
+                <div class="pie" id="pie-category"></div>
+                <figcaption class="legends" id="legends-category"></figcaption>
+            </figure>
+
+            <figure>
+                <h2>Spendings by Importance</h2>
+                <div class="pie" id="pie-importance"></div>
+                <figcaption class="legends" id="legends-importance"></figcaption>
+            </figure>
+        </div>
     </div>
 
     <div class="container">

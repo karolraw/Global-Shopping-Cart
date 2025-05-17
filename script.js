@@ -51,6 +51,8 @@ function createRows() {
     }
 
     totalCost()
+    makeCharts("category", "pie-category", "legends-category")
+    makeCharts("importance", "pie-importance", "legends-importance")
 }
 
 function addShoppingItem() {
@@ -144,3 +146,51 @@ function sortUp(property, isText=true) {
     window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
     createRows() 
 }
+
+function makeCharts(itemProp, pieChartId, legendsId) {
+    
+    const totalCost = shoppingItems.reduce((acc, item) => acc + item.price, 0)
+    const rawSumByCategory = shoppingItems.reduce((acc, item) => {
+        acc[item[itemProp]] = (acc[item[itemProp]] || 0) + item.price
+        return acc
+    }, {})
+
+    const sumByCategory = {}
+    Object.keys(rawSumByCategory).forEach(category => {
+        sumByCategory[category] = (rawSumByCategory[category]/totalCost) * 100
+    })
+
+    const pieChart = document.getElementById(pieChartId)
+    const colorList = ["red", "green", "blue", "purple", "yellow", "pink", "orange"]
+
+    let start = 0
+    let i = 0
+    const gradientParts = []
+
+    for (const [category, percent] of Object.entries(sumByCategory)) {
+        end = start + percent
+        color = colorList[i % colorList.length]
+        gradientParts.push(`${color} ${start}% ${end}%`)
+        start = end
+        i++
+    }
+
+    pieChart.style.backgroundImage = `
+        radial-gradient(lightcyan 0 30%, transparent 30% 60%, lightcyan 60% 100%),
+        conic-gradient(from -45deg, ${gradientParts.join(", ")})
+        `
+
+    const legends = document.getElementById(legendsId)
+    legends.innerHTML = ""
+
+    let j=0
+    for (const [category, percent] of Object.entries(sumByCategory)) {
+        const total = rawSumByCategory[category]
+        const span = document.createElement("span")
+        span.classList.add(colorList[j % colorList.length]) 
+        span.textContent = `${category}: ${total.toFixed(2)} zł (${percent.toFixed(2)}%)`
+        legends.appendChild(span)
+        j++
+    }
+}
+
