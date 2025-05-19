@@ -1,5 +1,8 @@
 let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
 
+let budget = JSON.parse(window.localStorage.getItem("budget")) || 0
+document.getElementById("budget").value = budget
+
 document.getElementById("budget").addEventListener("input", totalCost)
 
 function totalCost() {
@@ -11,6 +14,8 @@ function totalCost() {
     }
 
     let budget = document.getElementById("budget").value
+    window.localStorage.setItem("budget", JSON.stringify(budget))
+        
     document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł`
     document.getElementById("savings").textContent = `${(budget - totalCost).toFixed(2)} zł`
 
