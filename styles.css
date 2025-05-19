@@ -36,8 +36,9 @@ form label, form input, select {
 
 figure {
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: row-reverse;
     margin: 10px 10px;
+
 }
 
 .pie {
