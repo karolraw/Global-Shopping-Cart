@@ -11,13 +11,13 @@ function totalCost() {
     }
 
     let budget = document.getElementById("budget").value
+    document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł`
+    document.getElementById("savings").textContent = `${(budget - totalCost).toFixed(2)} zł`
 
     if (totalCost < budget) {
-        document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł`
-        document.getElementById("totalCost").style.color = "green"
+        document.getElementById("savings").style.color = "green"
     } else {
-        document.getElementById("totalCost").textContent = `${totalCost.toFixed(2)} zł (budget exceeded by ${(totalCost - budget).toFixed(2)} zł!)`
-        document.getElementById("totalCost").style.color = "red"
+        document.getElementById("savings").style.color = "red"
     }
 
 }
