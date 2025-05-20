@@ -22,6 +22,7 @@ form label, form input, select {
 
 .container {
     display:flex;
+    justify-content: space-evenly;
     background-color: #5dd0d8;
     border-radius: 8px;
     margin-bottom: 10px;
