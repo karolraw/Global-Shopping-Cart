@@ -61,15 +61,29 @@ function createRows() {
 }
 
 function addShoppingItem() {
-    let shoppingItem = {}
+    const description = document.getElementById('description-add').value
+    const store = document.getElementById('store-add').value
+    const price = document.getElementById('price-add').value
+    const category = document.getElementById('category-add').value
+    const website = document.getElementById('website-add').value
+    const previewImage = document.getElementById('previewImage-add').value
+    const importance = document.getElementById('importance-add').value
 
-    shoppingItem.description = document.getElementById("description-add").value
-    shoppingItem.store = document.getElementById("store-add").value
-    shoppingItem.price = Number(document.getElementById("price-add").value)
-    shoppingItem.category = document.getElementById("category-add").value
-    shoppingItem.website = document.getElementById("website-add").value
-    shoppingItem.previewImage = document.getElementById("previewImage-add").value
-    shoppingItem.importance = document.getElementById("importance-add").value
+    if (!description || !price || !website || !previewImage ||
+        store === 'Select Store' || category === 'Select Category' || importance === 'Select Importance') {
+        alert('Please fill in all fields before adding an item.')
+        return
+    }
+
+    let shoppingItem = {
+        description,
+        store,
+        price: Number(price),
+        category,
+        website,
+        previewImage,
+        importance
+    }
 
     shoppingItems.push(shoppingItem)
     window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
@@ -82,6 +96,8 @@ function addShoppingItem() {
     document.getElementById("website-add").value = null
     document.getElementById("previewImage-add").value = null
     document.getElementById("importance-add").value = "Select Importance"
+
+    document.getElementById("modal-add-item").style.display = "none"
 } 
 
 function clearStorage() {
