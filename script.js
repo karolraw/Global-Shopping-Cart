@@ -129,6 +129,16 @@ function populateForm(index) {
     button.addEventListener("click", function (e) {editRow(e, index)})
 }
 
+function resetForm() {
+    document.getElementById("description-add").value = null
+    document.getElementById("store-add").value = "Select Store"
+    document.getElementById("price-add").value = null
+    document.getElementById("category-add").value = "Select Category"
+    document.getElementById("website-add").value = null
+    document.getElementById("previewImage-add").value = null
+    document.getElementById("importance-add").value = "Select Importance"
+}
+
 function editRow(e, index) {
     let shoppingItem = {}
 
