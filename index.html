@@ -26,38 +26,42 @@
     <div class="modal" id="modal-add-item">
         <div class="form-container">
             <form autocomplete="off">
-                <button type="button" onclick="document.getElementById('modal-add-item').style.display = 'none'" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                <button type="button" onclick="collapseForm()" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                
+                <label for="website-add">Website:</label>
+                <input id="website-add">
+                <label id="website-add-error"></label><br>
+                
+                <label for="store-add">Store:</label>
+                <input id="store-add"><br>
+                
                 <label for="description-add">Description:</label>
                 <input id="description-add"><br>
     
-                <label for="store-add">Store:</label>
-                <select id="store-add">
-                    <option>Select Store</option>
-                    <option>Zara</option>
-                    <option>H&M</option>
-                    <option>Calzedonia</option>
-                    <option>Media Markt</option>
-                    <option>Media Expert</option>
-                    <option>Ikea</option>
-                    <option>Leroy Merlin</option>
-                </select><br>
-    
                 <label for="price-add">Price:</label>
-                <input id="price-add"><br>
-    
-                <label for="website-add">Website:</label>
-                <input id="website-add"><br>
+                <input id="price-add" placeholder="e.g. 59.99">
+                <label for="price-add">zł</label>
+                <label id="price-add-error"></label><br>
     
                 <label for="category-add">Category:</label>
                 <select id="category-add">
                     <option>Select Category</option>
-                    <option>Clothes</option>
-                    <option>Home</option>
+                    <option>Clothing & Fashion</option>
+                    <option>Home & Furniture</option>
+                    <option>Beauty & Personal Care</option>
+                    <option>Groceries & Food</option>
+                    <option>Books & Media</option>
+                    <option>Toys & Games</option>
+                    <option>Sports & Outdoors</option>
                     <option>Electronics</option>
+                    <option>Automotive & Tools</option>
                 </select><br>
     
                 <label for="previewImage-add">Preview Image:</label>
-                <input id="previewImage-add"><br>
+                <input id="previewImage-add">
+                <label id="previewImage-add-error"></label><br>
+                <input type="checkbox" id="previewImage-add-checkbox">
+                <label for="previewImage-add-checkbox">No image</label><br>
     
                 <label for="importance-add">Importance:</label>
                 <select id="importance-add">

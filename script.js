@@ -5,6 +5,13 @@ document.getElementById("budget").value = budget
 
 document.getElementById("budget").addEventListener("input", totalCost)
 
+document.getElementById("website-add").addEventListener("input", validateURL)
+
+document.getElementById("price-add").addEventListener("input", validatePrice)
+
+document.getElementById("previewImage-add").addEventListener("input", validateImageURL)
+
+
 function totalCost() {
     let totalCost = 0
     for (let index = 0; index < shoppingItems.length; index++) {
@@ -61,43 +68,41 @@ function createRows() {
 }
 
 function addShoppingItem() {
-    const description = document.getElementById('description-add').value
-    const store = document.getElementById('store-add').value
-    const price = document.getElementById('price-add').value
-    const category = document.getElementById('category-add').value
-    const website = document.getElementById('website-add').value
-    const previewImage = document.getElementById('previewImage-add').value
-    const importance = document.getElementById('importance-add').value
+    const website = document.getElementById("website-add")
+    const store = document.getElementById("store-add")
+    const description = document.getElementById("description-add")
+    const price = document.getElementById("price-add")
+    const category = document.getElementById("category-add")
+    const previewImage = document.getElementById("previewImage-add")
+    const importance = document.getElementById("importance-add")
 
-    if (!description || !price || !website || !previewImage ||
-        store === 'Select Store' || category === 'Select Category' || importance === 'Select Importance') {
-        alert('Please fill in all fields before adding an item.')
+    const checkbox = document.getElementById("previewImage-add-checkbox")
+
+    if (website.style.color === "red" || price.style.color === "red" || (previewImage.style.color === "red" && !checkbox.checked)) {
+        alert("Please correct inputs before adding an item.")
+        return
+    }
+
+    if (!website.value || !store.value || !description.value || !price.value || category.value === "Select Category" || (!previewImage.value && !checkbox.checked) || importance.value === "Select Importance") {
+        alert("Please fill in all fields before adding an item.")
         return
     }
 
     let shoppingItem = {
-        description,
-        store,
-        price: Number(price),
-        category,
-        website,
-        previewImage,
-        importance
+        website: website.value,
+        store: store.value,
+        description: description.value,
+        price: Number(price.value),
+        category: category.value,
+        previewImage: previewImage.value,
+        importance: importance.value
     }
 
     shoppingItems.push(shoppingItem)
     window.localStorage.setItem("shoppingItems", JSON.stringify(shoppingItems))
     createRows() // Refresh the table
 
-    document.getElementById("description-add").value = null
-    document.getElementById("store-add").value = "Select Store"
-    document.getElementById("price-add").value = null
-    document.getElementById("category-add").value = "Select Category"
-    document.getElementById("website-add").value = null
-    document.getElementById("previewImage-add").value = null
-    document.getElementById("importance-add").value = "Select Importance"
-
-    document.getElementById("modal-add-item").style.display = "none"
+    collapseForm()
 } 
 
 function clearStorage() {
@@ -130,13 +135,22 @@ function populateForm(index) {
 }
 
 function resetForm() {
-    document.getElementById("description-add").value = null
-    document.getElementById("store-add").value = "Select Store"
-    document.getElementById("price-add").value = null
-    document.getElementById("category-add").value = "Select Category"
     document.getElementById("website-add").value = null
+    document.getElementById("website-add").style.color = "black"
+    document.getElementById("store-add").value = null
+    document.getElementById("description-add").value = null
+    document.getElementById("price-add").value = null
+    document.getElementById("price-add").style.color = "black"
+    document.getElementById("category-add").value = "Select Category"
     document.getElementById("previewImage-add").value = null
+    document.getElementById("previewImage-add").style.color = "black"
     document.getElementById("importance-add").value = "Select Importance"
+
+    document.getElementById("website-add-error").textContent = ""
+    document.getElementById("price-add-error").textContent = ""
+    document.getElementById("previewImage-add-error").textContent = ""
+
+    document.getElementById("previewImage-add-checkbox").checked = false
 }
 
 function editRow(e, index) {
@@ -225,3 +239,69 @@ function makeCharts(itemProp, pieChartId, legendsId) {
     }
 }
 
+function validatePrice() {
+    const price = document.getElementById("price-add")
+    const valid = /^\d{0,5}(\.\d{0,2})?$/.test(price.value)
+    
+    if (valid) {
+        price.style.color = "black"
+        document.getElementById("price-add-error").textContent = ""
+    } else {
+        price.style.color = "red"
+        document.getElementById("price-add-error").textContent = "!"
+        document.getElementById("price-add-error").style.color = "red"
+        document.getElementById("price-add-error").style.fontWeight = "bold"
+
+    }
+}
+
+function validateURL() {
+    const url = document.getElementById("website-add")
+    const valid = url.value.startsWith("http://") || url.value.startsWith("https://")
+    
+    if (!url.value) {
+        url.style.color = "black"
+        document.getElementById("website-add-error").textContent = ""
+    } else if (valid) {
+        url.style.color = "black"
+        document.getElementById("website-add-error").textContent = ""
+        getStoreName()
+    } else {
+        url.style.color = "red"
+        document.getElementById("website-add-error").textContent = "!"
+        document.getElementById("website-add-error").style.color = "red"
+        document.getElementById("website-add-error").style.fontWeight = "bold"  
+    }
+}
+
+function getStoreName() {
+    const url = new URL(document.getElementById("website-add").value)
+    const hostname = url.hostname
+    const store = document.getElementById("store-add")
+    
+    shoppingItems.forEach(obj => {
+        if (new URL(obj.website).hostname === hostname) {
+            store.value = obj.store
+        }
+    })
+}
+
+function collapseForm() {
+    resetForm()
+    document.getElementById("modal-add-item").style.display = "none"
+}
+
+function validateImageURL() {
+    const url = document.getElementById("previewImage-add")
+    const valid = url.value.startsWith("http://") || url.value.startsWith("https://")
+
+    if (valid || !url.value) {
+        url.style.color = "black"
+        document.getElementById("previewImage-add-error").textContent = ""
+    } else {
+        url.style.color = "red"
+        document.getElementById("previewImage-add-error").textContent = "!"
+        document.getElementById("previewImage-add-error").style.color = "red"
+        document.getElementById("previewImage-add-error").style.fontWeight = "bold"  
+    }
+}
