@@ -54,7 +54,7 @@ function createRows() {
                         <td>${shoppingItem.price.toFixed(2)} zł</td>
                         <td>${shoppingItem.category}</td>
                         <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
-                        <td><button onclick='document.getElementById("preview").src = "${shoppingItem.previewImage}"' style="background: none; border: none; cursor: pointer;">&#128269;</button></td>
+                        <td><img src="${shoppingItem.previewImage}" alt="Add Image"></td>
                         <td>${shoppingItem.importance}</td>
                         <td><button onclick="populateForm(${index})">Edit</button></td>
                         <td><button onclick="deleteRow(${index})">&times;</button></td>

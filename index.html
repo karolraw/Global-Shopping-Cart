@@ -126,7 +126,26 @@
         </div>
     </div>
 
-    <div class="container" style="width: 1300px; margin: 0 auto 10px auto">
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Description <button onclick="sortDown('description')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('description')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Store <button onclick="sortDown('store')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('store')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Price <button onclick="sortDown('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Category <button onclick="sortDown('category')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('category')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Website</th>
+                    <th>Preview</th>
+                    <th>Importance <button onclick="sortDown('importance')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('importance')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- create body using script -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
         <div class="budget">
             <h3 style="text-align: center;">Your Budget: <input id="budget" size="5"> zł</h3>
             <h3 style="text-align: center;">Total Cost: <span id="totalCost"></span></h3>
@@ -141,7 +160,7 @@
                 </div>
                 <figcaption class="legends" id="legends-category"></figcaption>
             </figure>
-
+    
             <figure>
                 <div>
                     <h2 style="text-align: center;">Spendings By Importance</h2>
@@ -151,32 +170,6 @@
             </figure>
         </div>
     </div>
-
-    <div class="container">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Description <button onclick="sortDown('description')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('description')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                        <th>Store <button onclick="sortDown('store')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('store')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                        <th>Price <button onclick="sortDown('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                        <th>Category <button onclick="sortDown('category')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('category')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                        <th>Website</th>
-                        <th>Preview</th>
-                        <th>Importance <button onclick="sortDown('importance')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('importance')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- create body using script -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="image-container">
-            <!-- <img id="preview" src="" alt="Select Item to Preview" style="height: 300px; width: auto; margin-right: 200px;"> -->
-            <img id="preview" src="" alt="Select Item to Preview">
-        </div>         
-    </div>
-
+    
 </body>
 </html>
