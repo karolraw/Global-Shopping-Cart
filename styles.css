@@ -1,0 +1,165 @@
+body {
+    background-color: lightyellow;
+}
+
+.modal {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.form-container {
+    background-color: aqua;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+form label, form input, select {
+    margin: 5px 0;
+}
+
+.container {
+    display:flex;
+    justify-content: space-evenly;
+    background-color: #5dd0d8;
+    border-radius: 8px;
+    margin-left: 600px;
+}
+
+.budget {
+    display: flex;
+    flex-direction: column;
+    background-color: lightcyan;
+    border-radius: 8px; 
+    margin: 10px 10px;
+    padding: 10px 10px;
+}
+
+.charts {
+    display: flex;
+    background-color: lightcyan;
+    border-radius: 8px; 
+    margin: 10px 10px;
+}
+
+figure {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px 10px;
+
+}
+
+.pie {
+    width: 250px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin: 10px 10px;
+}
+
+.legends {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.legends span::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.legends span.red::before {
+    background-color: red;
+}
+
+.legends span.green::before {
+    background-color: green;
+}
+
+.legends span.blue::before {
+    background-color: blue;
+}
+
+.legends span.purple::before {
+    background-color: purple;
+}
+
+.legends span.yellow::before {
+    background-color: yellow;
+}
+
+.legends span.pink::before {
+    background-color: pink;
+}
+
+.legends span.orange::before {
+    background-color: orange;
+}
+
+.table-container {
+    margin: 100px 800px 100px 100px;
+    height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+img {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+}
+
+th, td {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+th {
+    background-color: aquamarine;
+    position: sticky;
+    top: 0;
+}
+
+td:nth-child(5), td:nth-child(6) {
+    text-align: center;
+}
+td:nth-child(8), td:nth-child(9) {
+    border: none;
+    background-color: lightyellow;
+}
+
+td:nth-child(8) button, td:nth-child(9) button {
+    background-color: #ee82ee;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+td:nth-child(8) button:hover, td:nth-child(9) button:hover {
+    background-color: lightpink;
+}
+
+tr {
+    background-color: lightcyan;
+}
+
+tr:hover {
+    background-color: rgb(133, 255, 255);
+}
+
+a {
+    text-decoration: none;
+}

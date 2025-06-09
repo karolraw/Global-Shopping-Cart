@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script> 
+</head>
+<body onload="createRows()">
+
+    <div style="background-color: darkblue; border-radius: 8px; height: 50px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div style="margin-left: 10px;">
+            <button onclick="clearStorage()" style="background-color: orange; padding: 5px; border-radius: 8px;">Clear Storage</button>
+        </div>
+
+        <div>
+            <h1 style="color:greenyellow;">Global Shopping Cart</h1>
+        </div>
+        
+        <div style="margin-right: 10px;">
+            <button onclick="document.getElementById('modal-add-item').style.display = 'flex'" style="background-color: orange; padding: 5px; border-radius: 8px;">New Item</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-add-item">
+        <div class="form-container">
+            <form autocomplete="off">
+                <button type="button" onclick="collapseForm()" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                
+                <label for="website-add">Website:</label>
+                <input id="website-add">
+                <label id="website-add-error"></label><br>
+                
+                <label for="store-add">Store:</label>
+                <input id="store-add"><br>
+                
+                <label for="description-add">Description:</label>
+                <input id="description-add"><br>
+    
+                <label for="price-add">Price:</label>
+                <input id="price-add" placeholder="e.g. 59.99">
+                <label for="price-add">zł</label>
+                <label id="price-add-error"></label><br>
+    
+                <label for="category-add">Category:</label>
+                <select id="category-add">
+                    <option>Select Category</option>
+                    <option>Clothing & Fashion</option>
+                    <option>Home & Furniture</option>
+                    <option>Beauty & Personal Care</option>
+                    <option>Groceries & Food</option>
+                    <option>Books & Media</option>
+                    <option>Toys & Games</option>
+                    <option>Sports & Outdoors</option>
+                    <option>Electronics</option>
+                    <option>Automotive & Tools</option>
+                </select><br>
+    
+                <label for="previewImage-add">Preview Image:</label>
+                <input id="previewImage-add">
+                <label id="previewImage-add-error"></label><br>
+                <input type="checkbox" id="previewImage-add-checkbox">
+                <label for="previewImage-add-checkbox">No image</label><br>
+    
+                <label for="importance-add">Importance:</label>
+                <select id="importance-add">
+                    <option>Select Importance</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select><br>
+    
+                <input type="button" onclick="resetForm()" value="Reset Form" style="float: left;">
+                <input type="button" onclick="addShoppingItem()" value="Add Item" style="float: right;">
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-edit-item">
+        <div class="form-container">
+            <form autocomplete="off">
+                <button type="button" onclick="document.getElementById('modal-edit-item').style.display = 'none'" style="float: right; font-size: 18px; padding: 5px; background: none; border: none;">&times;</button><br>
+                <label for="description-edit">Description:</label>
+                <input id="description-edit"><br>
+    
+                <label for="store-edit">Store:</label>
+                <select id="store-edit">
+                    <option>Select Store</option>
+                    <option>Zara</option>
+                    <option>H&M</option>
+                    <option>Calzedonia</option>
+                    <option>Media Markt</option>
+                    <option>Media Expert</option>
+                    <option>Ikea</option>
+                    <option>Leroy Merlin</option>
+                </select><br>
+    
+                <label for="price-edit">Price:</label>
+                <input id="price-edit"><br>
+    
+                <label for="website-edit">Website:</label>
+                <input id="website-edit"><br>
+    
+                <label for="category-edit">Category:</label>
+                <select id="category-edit">
+                    <option>Select Category</option>
+                    <option>Clothes</option>
+                    <option>Home</option>
+                    <option>Electronics</option>
+                </select><br>
+    
+                <label for="previewImage-edit">Preview Image:</label>
+                <input id="previewImage-edit"><br>
+    
+                <label for="importance-edit">Importance:</label>
+                <select id="importance-edit">
+                    <option>Select Importance</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select><br>
+    
+                <input type="button" id="button-edit" value="Edit Item" style="float: right;">
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Description <button onclick="sortDown('description')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('description')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Store <button onclick="sortDown('store')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('store')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Price <button onclick="sortDown('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Category <button onclick="sortDown('category')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('category')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                    <th>Website</th>
+                    <th>Preview</th>
+                    <th>Importance <button onclick="sortDown('importance')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('importance')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- create body using script -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="budget">
+            <h3 style="text-align: center;">Your Budget: <input id="budget" size="5"> zł</h3>
+            <h3 style="text-align: center;">Total Cost: <span id="totalCost"></span></h3>
+            <h3 style="text-align: center;">Savings: <span id="savings"></span></h3>
+        </div>
+        
+        <div class="charts">
+            <figure>
+                <div>
+                    <h2 style="text-align: center;">Spendings By Category</h2>
+                    <div class="pie" id="pie-category"></div>
+                </div>
+                <figcaption class="legends" id="legends-category"></figcaption>
+            </figure>
+    
+            <figure>
+                <div>
+                    <h2 style="text-align: center;">Spendings By Importance</h2>
+                    <div class="pie" id="pie-importance"></div>
+                </div>
+                <figcaption class="legends" id="legends-importance"></figcaption>
+            </figure>
+        </div>
+    </div>
+    
+</body>
+</html>
