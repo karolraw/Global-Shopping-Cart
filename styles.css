@@ -4,6 +4,9 @@ body {
     align-items: center;
     background-color: lightyellow;
 }
+.title-image {
+    transform: scale(0.7, 0.7);
+}
 
 .modal {
     display: none;
