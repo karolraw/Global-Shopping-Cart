@@ -126,14 +126,12 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="budget">
-            <h3 style="text-align: center;">Your Budget: <input id="budget" size="5"> zł</h3>
-            <h3 style="text-align: center;">Total Cost: <span id="totalCost"></span></h3>
-            <h3 style="text-align: center;">Savings: <span id="savings"></span></h3>
-        </div>
-        
-        <div class="charts">
+    <div>
+        <h3>My budget: <input id="budget" size="5"></h3>
+        <h3>Savings: <span id="savings"></span></h3>
+    </div>
+
+    <div class="charts">
             <figure>
                 <div>
                     <h2 style="text-align: center;">Spendings By Category</h2>
@@ -150,27 +148,18 @@
                 <figcaption class="legends" id="legends-importance"></figcaption>
             </figure>
         </div>
-    </div>
 
-    <div class="table-container">
-        <h2>My Items</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Description <button onclick="sortDown('description')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('description')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                    <th>Store <button onclick="sortDown('store')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('store')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                    <th>Price <button onclick="sortDown('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('price', isText=false)" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                    <th>Category <button onclick="sortDown('category')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('category')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                    <th>Website</th>
-                    <th>Preview</th>
-                    <th>Importance <button onclick="sortDown('importance')" style="border: none; background: none; cursor: pointer;">&#128071;</button><button onclick="sortUp('importance')" style="border: none; background: none; cursor: pointer;">&#128070;</button></th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- create body using script -->
-            </tbody>
-        </table>
+    <!-- <div class="items-container">
+        <h2 style="text-align: center;">My Items</h2>
+        <h3>Total Cost: <span id="totalCost"></span> Number Of Items: <span id="numberOfItems"></span></h3>
+        <div id="items"></div>
+    </div> -->
+    <h2 style="text-align: center;">My Items</h2>
+    <h3>Total Cost: <span id="totalCost"></span></h3>
+    
+    <div id="items-container">
+        <div id="items"></div>
+        <div id="items-info"></div>
     </div>
-
 </body>
 </html>
