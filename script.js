@@ -1,6 +1,6 @@
-let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
+const shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems")) || []
 
-let budget = JSON.parse(window.localStorage.getItem("budget")) || 0
+const budget = JSON.parse(window.localStorage.getItem("budget")) || 0
 document.getElementById("budget").value = budget
 
 document.getElementById("budget").addEventListener("input", totalCost)
@@ -35,36 +35,59 @@ function totalCost() {
 }
 
 function createRows() {
-    const tableBody = document.getElementById("tableBody")
+    const items = document.getElementById("items")
+    items.innerHTML = ""
 
-    tableBody.innerHTML = ""
+    const itemsInfo = document.getElementById("items-info")
+    itemsInfo.innerHTML = ""
 
-    let shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
+    const shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
     if (!shoppingItems) {
         return
     } 
 
     for (let index = 0; index < shoppingItems.length; index++) {
-        const row = document.createElement("tr")
-        let shoppingItem = shoppingItems[index]
+        const item = document.createElement("div")
+        const shoppingItem = shoppingItems[index]
 
-        row.id = index
-        row.innerHTML = `<td>${shoppingItem.description}</td>
-                        <td>${shoppingItem.store}</td>
-                        <td>${shoppingItem.price.toFixed(2)} zł</td>
-                        <td>${shoppingItem.category}</td>
-                        <td><a href=${shoppingItem.website} target="_blank">&#128279;</a></td>
-                        <td><img src="${shoppingItem.previewImage}" alt="Add Image"></td>
-                        <td>${shoppingItem.importance}</td>
-                        <td><button onclick="populateForm(${index})">Edit</button></td>
-                        <td><button onclick="deleteRow(${index})">&times;</button></td>
-                        `
-        tableBody.appendChild(row)
+        item.id = index
+        item.innerHTML = `<button onclick="createItemInfo(${index})" style="border: none; background: none; cursor: pointer;"><img class="image-preview" src="${shoppingItem.previewImage}" alt="Add Image"></button>`
+        items.appendChild(item)
     }
 
     totalCost()
     makeCharts("category", "pie-category", "legends-category")
     makeCharts("importance", "pie-importance", "legends-importance")
+}
+
+function createItemInfo(index) {
+    const itemsInfo = document.getElementById("items-info")
+    itemsInfo.innerHTML = ""
+    const itemInfo = document.createElement("div")
+    const shoppingItem = shoppingItems[index]
+
+    itemInfo.className = "item"        
+    itemInfo.innerHTML = `
+    <div class="buttons">
+        <button class="edit" onclick="populateForm(${index})">Edit</button>
+        <button class="delete" onclick="deleteRow(${index})">Delete</button>
+    </div>
+    <img class="image" src="${shoppingItem.previewImage}" alt="Add Image">
+    <div class="info">
+        <h2 class="title"><a href="${shoppingItem.website}" target="_blank">${shoppingItem.description}</a></h2>
+        <div class="store-tags-price">
+            <div class="store-tags">
+                <p class="store">${shoppingItem.store}</p>
+                <div class="tags">
+                    <span class="tag-importance">${shoppingItem.importance}</span>
+                    <span class="tag-category">${shoppingItem.category}</span>
+                </div>
+            </div>
+            <p class="price">${shoppingItem.price.toFixed(2)} zł</p>
+        </div>
+    </div>
+    `
+    itemsInfo.appendChild(itemInfo)
 }
 
 function addShoppingItem() {
@@ -118,7 +141,7 @@ function deleteRow(index) {
 }
 
 function populateForm(index) {
-    let shoppingItem = shoppingItems[index]
+    const shoppingItem = shoppingItems[index]
 
     document.getElementById("modal-edit-item").style.display = "flex"
 
@@ -221,7 +244,7 @@ function makeCharts(itemProp, pieChartId, legendsId) {
     }
 
     pieChart.style.backgroundImage = `
-        radial-gradient(lightcyan 0 30%, transparent 30% 60%, lightcyan 60% 100%),
+        radial-gradient(lightyellow 0 30%, transparent 30% 60%, lightyellow 60% 100%),
         conic-gradient(from -45deg, ${gradientParts.join(", ")})
         `
 
@@ -304,4 +327,12 @@ function validateImageURL() {
         document.getElementById("previewImage-add-error").style.color = "red"
         document.getElementById("previewImage-add-error").style.fontWeight = "bold"  
     }
+}
+
+function countItems() {
+    const shoppingItems = JSON.parse(window.localStorage.getItem("shoppingItems"))
+    const numberOfItems = shoppingItems.length
+    const numberOfItemsElement = document.getElementById("numberOfItems")
+
+    numberOfItemsElement.textContent = numberOfItems
 }
