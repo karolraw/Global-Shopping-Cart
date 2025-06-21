@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: lightyellow;
+    background-color: #FFFAE8;
 }
 .title-image {
     transform: scale(0.7, 0.7);
