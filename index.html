@@ -9,22 +9,17 @@
 </head>
 <body onload="createRows()">
 
-    <img src="images/title-image.png" alt="title image" class="title-image">
-    <img src="images/landscape.png" alt="landscape" class="landscape-image">
+    <header>
+        <img src="images/title-image2.png" alt="title image 2" class="title-image">
+        <h1 class="heading1">Global Shopping Cart</h1>
+        <h2 class="heading2">A more mindful way to shop online</h2>
 
-    <div style="background-color: darkblue; border-radius: 8px; height: 50px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <div style="margin-left: 10px;">
-            <button onclick="clearStorage()" style="background-color: orange; padding: 5px; border-radius: 8px;">Clear Storage</button>
+        <div class="heading-buttons">
+            <button onclick="clearStorage()">Clear Storage</button>
+            <button onclick="document.getElementById('modal-add-item').style.display = 'flex'">New Item</button>
         </div>
-
-        <div>
-            <h1 style="color:greenyellow;">Global Shopping Cart</h1>
-        </div>
-        
-        <div style="margin-right: 10px;">
-            <button onclick="document.getElementById('modal-add-item').style.display = 'flex'" style="background-color: orange; padding: 5px; border-radius: 8px;">New Item</button>
-        </div>
-    </div>
+    </header>
+    
 
     <div class="modal" id="modal-add-item">
         <div class="form-container">
@@ -152,17 +147,12 @@
             </figure>
         </div>
 
-    <!-- <div class="items-container">
-        <h2 style="text-align: center;">My Items</h2>
-        <h3>Total Cost: <span id="totalCost"></span> Number Of Items: <span id="numberOfItems"></span></h3>
-        <div id="items"></div>
-    </div> -->
     <h2 style="text-align: center;">My Items</h2>
     <h3>Total Cost: <span id="totalCost"></span></h3>
     
     <div id="items-container">
-        <div id="items"></div>
         <div id="items-info"></div>
+        <div id="items"></div>
     </div>
 </body>
 </html>
